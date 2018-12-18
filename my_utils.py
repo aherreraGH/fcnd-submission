@@ -1,4 +1,5 @@
 import numpy as np
+from math import degrees, atan2
 
 """
 All code here was brought over from the FCND exercises.
@@ -52,3 +53,14 @@ def closest_point(graph, current_point):
             cp = p
             dist = d
     return cp
+
+
+# set bearing
+def adjust_bearing(waypoints):
+    for idx in range(len(waypoints)):
+        # skip the first waypoint
+        if idx > 0:
+            previous_waypoint = waypoints[idx -1]
+            current_waypoint = waypoints[idx]
+            current_waypoint[3] = np.arctan2((current_waypoint[1] - previous_waypoint[1]), (current_waypoint[0] - previous_waypoint[0]))
+    return waypoints

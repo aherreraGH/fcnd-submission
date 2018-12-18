@@ -11,7 +11,7 @@ from udacidrone.connection import MavlinkConnection
 from udacidrone.messaging import MsgID
 from udacidrone.frame_utils import global_to_local
 
-from my_utils import prune_path, collinearity_check, closest_point, point
+from my_utils import prune_path, adjust_bearing
 
 class States(Enum):
     MANUAL = auto()
@@ -180,6 +180,11 @@ class MotionPlanning(Drone):
         # DONE: add diagonal motions with a cost of sqrt(2) to your A* implementation
         # or move to a different search space such as a graph (not done here)
         print('Local Start and Goal: ', grid_start, grid_goal)
+        print('running A*, this takes a while... stand by...')
+        """
+        NOTE: if the simulator craps out due to a timeout, it may be that the simulator has a memory leak somewhere
+              close the simulator, reopen it, then retry again.
+        """
         path, _ = a_star(grid, heuristic, grid_start, grid_goal)
         print(path)
         # DONE: prune path to minimize number of waypoints
@@ -189,7 +194,10 @@ class MotionPlanning(Drone):
         # Convert path to waypoints
         waypoints = [[p[0] + north_offset, p[1] + east_offset, TARGET_ALTITUDE, 0] for p in path]
         # Set self.waypoints
-        print(waypoints[0])
+        print('show the first waypoint: ', waypoints[0])
+        # Add bearing to waypoints - uncomment below to run with the bearing in place.
+        # waypoints = adjust_bearing(waypoints)
+        # print('waypoints with bearing: ', waypoints[0])
 
         self.waypoints = waypoints
         # DONE: send waypoints to sim (this is just for visualization of waypoints)
@@ -214,7 +222,7 @@ if __name__ == "__main__":
     parser.add_argument('--host', type=str, default='127.0.0.1', help="host address, i.e. '127.0.0.1'")
     args = parser.parse_args()
 
-    conn = MavlinkConnection('tcp:{0}:{1}'.format(args.host, args.port), timeout=60)
+    conn = MavlinkConnection('tcp:{0}:{1}'.format(args.host, args.port), timeout=160)
     drone = MotionPlanning(conn)
     time.sleep(1)
 

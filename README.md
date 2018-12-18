@@ -162,9 +162,32 @@ def prune_path(path):
 
 The result returned by the `prune_path()` function should be a much smaller list of paths than originally started with - unless of course, the original path has a small amount of points to check.
 
+# Bonus code attempt
+
+Heading was added to this project. In the __motion_planning.py__ file, there is a heading section that is commented out - since it's not part of the project requirements: 
+
+```python
+# Add bearing to waypoints - uncomment below to run with the bearing in place.
+# waypoints = adjust_bearing(waypoints)
+# print('waypoints with bearing: ', waypoints[0])
+```
+
+In the file my_utils.py, the following was added to handle adjusting the bearing:
+```python
+# set bearing
+def adjust_bearing(waypoints):
+    for idx in range(len(waypoints)):
+        # skip the first waypoint
+        if idx > 0:
+            previous_waypoint = waypoints[idx -1]
+            current_waypoint = waypoints[idx]
+            current_waypoint[3] = np.arctan2((current_waypoint[1] - previous_waypoint[1]), (current_waypoint[0] - previous_waypoint[0]))
+    return waypoints
+```
+
 # Executing the flight
 
-__Note:__ On my windows laptop, it seems the whole planning takes a lot longer to process - which makes sense - when using long distances. So, testing was done on short (maybe 2 street blocks on the map). 
+__Note:__ On my windows laptop, it seems the whole planning takes a lot longer to process - which makes sense - when using long distances. 
 
 In windows
 1. Open __Anaconda Prompt__
