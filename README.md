@@ -90,6 +90,9 @@ Then in the `valid_actions()` function, the check was modified to include the NW
 
 ```python
 if x - 1 < 0:
+    # eliminate NORTH as we're at the edge
+    valid_actions.remove(Action.NORTH)
+else:
     if grid[x - 1, y] == 1:
         valid_actions.remove(Action.NORTH)
     if grid[x - 1, y + 1] == 1:
@@ -97,19 +100,23 @@ if x - 1 < 0:
     if grid[x - 1, y - 1] == 1:
         valid_actions.remove(Action.NORTH_WEST)
 if x + 1 > n:
+    # eliminate SOUTH because we're at the edge
+    valid_actions.remove(Action.SOUTH)
+else:
     if grid[x + 1, y] == 1:
         valid_actions.remove(Action.SOUTH)
     if grid[x + 1, y + 1] == 1:
         valid_actions.remove(Action.SOUTH_EAST)
     if grid[x + 1, y - 1] == 1:
         valid_actions.remove(Action.SOUTH_WEST)
+# since the other code above takes care of SW, SE, NW, and NE, no need to repeat that below
 if y - 1 < 0 or grid[x, y - 1] == 1:
     valid_actions.remove(Action.WEST)
 if y + 1 > m or grid[x, y + 1] == 1:
     valid_actions.remove(Action.EAST)
 ```
 
-From the above, it does appear the drone does a nifty little diagonal motion. Not sure if that's the correct result, but, it does move in the correct direction.
+From the above, it does appear the drone does a nifty little diagonal motion. Not sure if that's the correct result, but, it does move in the correct direction. Sure, there is a cleaner way to handle the above code, but, for now, it's fairly readable, to know what it's doing.
 
 __my_utils.py__ contains the collinearity check and path pruning functions that were brought over from the course exercises: 
 
