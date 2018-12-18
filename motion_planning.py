@@ -160,8 +160,8 @@ class MotionPlanning(Drone):
         # Set goal as some arbitrary position on the grid
         # grid_goal = (-north_offset + 10, -east_offset + 10)
         # Set to a grassy area just a bit SW of the original starting point.
-        goal_lon = -122.398030
-        goal_lat = 37.791574
+        goal_lon = -122.397888
+        goal_lat = 37.791725
         goal_alt = 0
 
         # The following was done with help/guidance from student Maruf Aytekin
@@ -189,6 +189,7 @@ class MotionPlanning(Drone):
         print(path)
         # DONE: prune path to minimize number of waypoints
         # NOT DONE TODO (if you're feeling ambitious): Try a different approach altogether!
+        print('pruning the paths...')
         path = prune_path(path)
         print(path)
         # Convert path to waypoints
@@ -196,8 +197,8 @@ class MotionPlanning(Drone):
         # Set self.waypoints
         print('show the first waypoint: ', waypoints[0])
         # Add bearing to waypoints - uncomment below to run with the bearing in place.
-        # waypoints = adjust_bearing(waypoints)
-        # print('waypoints with bearing: ', waypoints[0])
+        waypoints = adjust_bearing(waypoints)
+        print('waypoints with bearing: ', waypoints[1])
 
         self.waypoints = waypoints
         # DONE: send waypoints to sim (this is just for visualization of waypoints)

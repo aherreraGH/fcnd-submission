@@ -172,7 +172,7 @@ Heading was added to this project. In the __motion_planning.py__ file, there is 
 # print('waypoints with bearing: ', waypoints[0])
 ```
 
-In the file my_utils.py, the following was added to handle adjusting the bearing:
+In the file __my_utils.py__, the following was added to handle adjusting the bearing:
 ```python
 # set bearing
 def adjust_bearing(waypoints):
