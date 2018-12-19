@@ -115,9 +115,9 @@ def valid_actions(grid, current_node):
 # The A* path and cost
 def a_star(grid, h, start, goal):
 
-    #print('in a_star:')
-    #print(start)
-    #print(goal)
+    print('in a_star:')
+    print(start)
+    print(goal)
     path = []
     path_cost = 0
     queue = PriorityQueue()

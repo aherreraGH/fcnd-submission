@@ -160,8 +160,8 @@ class MotionPlanning(Drone):
         # Set goal as some arbitrary position on the grid
         # grid_goal = (-north_offset + 10, -east_offset + 10)
         # Set to a grassy area just a bit SW of the original starting point.
-        goal_lon = -122.397888
-        goal_lat = 37.791725
+        goal_lon = -122.397745
+        goal_lat = 37.793837
         goal_alt = 0
 
         # The following was done with help/guidance from student Maruf Aytekin
@@ -196,7 +196,7 @@ class MotionPlanning(Drone):
         waypoints = [[p[0] + north_offset, p[1] + east_offset, TARGET_ALTITUDE, 0] for p in path]
         # Set self.waypoints
         print('show the first waypoint: ', waypoints[0])
-        # Add bearing to waypoints - uncomment below to run with the bearing in place.
+        # Add bearing to waypoints
         waypoints = adjust_bearing(waypoints)
         print('waypoints with bearing: ', waypoints[1])
 
@@ -223,7 +223,7 @@ if __name__ == "__main__":
     parser.add_argument('--host', type=str, default='127.0.0.1', help="host address, i.e. '127.0.0.1'")
     args = parser.parse_args()
 
-    conn = MavlinkConnection('tcp:{0}:{1}'.format(args.host, args.port), timeout=160)
+    conn = MavlinkConnection('tcp:{0}:{1}'.format(args.host, args.port), timeout=60)
     drone = MotionPlanning(conn)
     time.sleep(1)
 

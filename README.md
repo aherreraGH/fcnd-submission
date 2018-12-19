@@ -167,8 +167,8 @@ The result returned by the `prune_path()` function should be a much smaller list
 Heading was added to this project. In the __motion_planning.py__ file, there is a heading section that is commented out - since it's not part of the project requirements: 
 
 ```python
-# Add bearing to waypoints - uncomment below to run with the bearing in place.
-# waypoints = adjust_bearing(waypoints)
+# Add bearing to waypoints
+waypoints = adjust_bearing(waypoints)
 # print('waypoints with bearing: ', waypoints[0])
 ```
 
